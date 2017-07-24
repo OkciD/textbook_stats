@@ -7,14 +7,16 @@ from lxml import etree
 class DocxDocument:
     def __init__(self, filename):
         self.filename = filename;
+        self.document_xml_path = "word/document.xml";
+        self.app_xml_path = "docProps/app.xml";
         self.extract_xmls();
-        self.document_xml = etree.ElementTree(file="word/document.xml");
-        self.app_xml = etree.ElementTree(file="docProps/app.xml");
+        self.document_xml = etree.parse(self.document_xml_path);
+        self.app_xml = etree.parse(self.app_xml_path);
 
     def extract_xmls(self):
         archive = zipfile.ZipFile(self.filename);
-        archive.extract("word/document.xml");
-        archive.extract("docProps/app.xml")
+        archive.extract(self.document_xml_path);
+        archive.extract(self.app_xml_path)
         archive.close();
 
     def __del__(self):
