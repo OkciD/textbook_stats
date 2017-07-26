@@ -2,7 +2,8 @@ import docx_document
 
 
 def main():
-    docx = docx_document.DocxDocument("sample.docx");
+    filename = input("Input filename: ");
+    docx = docx_document.DocxDocument(filename);
     print("Pages: ", docx.n_pages);
     print("Paragraphs: ", docx.n_paragraphs);
     print("Words: ", docx.n_words);
