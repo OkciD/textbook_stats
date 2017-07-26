@@ -43,7 +43,7 @@ class DocxDocument:
         self.n_tables = len(self.document_xml.xpath(".//w:tbl", namespaces=self.document_xml_namespaces));
 
     def __del__(self):
-        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "word");
+        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), self.document_xml_path.split("/")[0]);
         shutil.rmtree(path);
-        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "docProps");
+        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), self.app_xml_path.split("/")[0]);
         shutil.rmtree(path);
