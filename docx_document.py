@@ -14,6 +14,7 @@ class DocxDocument:
         self.document_xml = etree.parse(self.document_xml_path);
         self.app_xml = etree.parse(self.app_xml_path);
         self.get_app_xml_info();
+        self.get_document_xml_info();
 
     def extract_xmls(self):
         archive = zipfile.ZipFile(self.filename);
@@ -34,6 +35,10 @@ class DocxDocument:
         self.n_paragraphs = int(self.app_xml.xpath(".//Paragraphs/text()")[0]);
         self.n_words = int(self.app_xml.xpath(".//Words/text()")[0]);
         self.n_characters = int(self.app_xml.xpath(".//Characters/text()")[0]);
+
+    def get_document_xml_info(self):
+        self.n_drawings = len(self.document_xml.xpath(".//w:drawing", namespaces=self.document_xml.getroot().nsmap));
+        self.n_tables = len(self.document_xml.xpath(".//w:tbl", namespaces=self.document_xml.getroot().nsmap));
 
     def __del__(self):
         path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "word");
