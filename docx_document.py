@@ -24,17 +24,17 @@ class DocxDocument:
 
     def clean_app_xml_root(self):
         app_xml_file = open(self.app_xml_path, "r");
-        app_xml_file_contents = app_xml_file.read().replace('<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">', "<Properties>");
+        app_xml_file_contents = app_xml_file.read().replace('xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ', "");
         app_xml_file.close();
         app_xml_file = open(self.app_xml_path, "w");
         app_xml_file.write(app_xml_file_contents);
         app_xml_file.close();
 
     def get_app_xml_info(self):
-        self.n_pages = int(self.app_xml.xpath(".//Pages/text()")[0]);
-        self.n_paragraphs = int(self.app_xml.xpath(".//Paragraphs/text()")[0]);
-        self.n_words = int(self.app_xml.xpath(".//Words/text()")[0]);
-        self.n_characters = int(self.app_xml.xpath(".//Characters/text()")[0]);
+        self.n_pages = int(self.app_xml.xpath(".//Pages/text()", namespaces=self.app_xml.getroot().nsmap)[0]);
+        self.n_paragraphs = int(self.app_xml.xpath(".//Paragraphs/text()", namespaces=self.app_xml.getroot().nsmap)[0]);
+        self.n_words = int(self.app_xml.xpath(".//Words/text()", namespaces=self.app_xml.getroot().nsmap)[0]);
+        self.n_characters = int(self.app_xml.xpath(".//Characters/text()", namespaces=self.app_xml.getroot().nsmap)[0]);
 
     def get_document_xml_info(self):
         self.n_drawings = len(self.document_xml.xpath(".//w:drawing", namespaces=self.document_xml.getroot().nsmap));
