@@ -13,6 +13,7 @@ class DocxDocument:
         self.clean_app_xml_root();
         self.document_xml = etree.parse(self.document_xml_path);
         self.app_xml = etree.parse(self.app_xml_path);
+        self.get_app_xml_info();
 
     def extract_xmls(self):
         archive = zipfile.ZipFile(self.filename);
@@ -27,6 +28,12 @@ class DocxDocument:
         app_xml_file = open(self.app_xml_path, "w");
         app_xml_file.write(app_xml_file_contents);
         app_xml_file.close();
+
+    def get_app_xml_info(self):
+        self.n_pages = int(self.app_xml.xpath(".//Pages/text()")[0]);
+        self.n_paragraphs = int(self.app_xml.xpath(".//Paragraphs/text()")[0]);
+        self.n_words = int(self.app_xml.xpath(".//Words/text()")[0]);
+        self.n_characters = int(self.app_xml.xpath(".//Characters/text()")[0]);
 
     def __del__(self):
         path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "word");
