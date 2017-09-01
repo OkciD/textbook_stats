@@ -1,6 +1,5 @@
 import docx_document
 import pandas as pd
-import numpy as np
 
 
 def print_dict(dict):
@@ -19,8 +18,7 @@ def print_table(dict):
 
 
 def main():
-    # filename = input("Input filename: ");
-    filename = "sample.docx";
+    filename = input("Input filename: ");
     docx = docx_document.DocxDocument(filename);
     values_dict = {"Pages": docx.n_pages, "Paragraphs": docx.n_paragraphs, "Words": docx.n_words,
                    "Characters": docx.n_characters, "Drawings": docx.n_drawings, "Tables": docx.n_tables};
