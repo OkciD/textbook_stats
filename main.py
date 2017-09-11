@@ -13,10 +13,8 @@ def print_table(dict):
     for key_i in dict:
         values_row = [];
         for key_j in dict:
-            if (dict[key_j] <= 0):
+            if (dict[key_i] <= 0):
                 values_row.append(None);
-            elif (dict[key_i] <= 0):
-                values_row.append(0);
             else:
                 values_row.append(dict[key_j] / dict[key_i]);
         row = pd.DataFrame([values_row], columns=keys, index=[key_i]);
