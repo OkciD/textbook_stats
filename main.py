@@ -11,9 +11,17 @@ def print_table(dict):
     keys = dict.keys();
     table = pd.DataFrame(columns=keys);
     for key_i in dict:
-        values_row = [dict[key_j] / dict[key_i] for key_j in dict];
+        values_row = [];
+        for key_j in dict:
+            if (dict[key_j] <= 0):
+                values_row.append(None);
+            elif (dict[key_i] <= 0):
+                values_row.append(0);
+            else:
+                values_row.append(dict[key_j] / dict[key_i]);
         row = pd.DataFrame([values_row], columns=keys, index=[key_i]);
         table = table.append(row);
+    print("\nFirst row items are numerators, first column items are denominators.");
     print(table);
 
 
@@ -25,5 +33,6 @@ def main():
 
     print_dict(values_dict);
     print_table(values_dict);
+    input("\nPress any key to exit");
 
 main();
